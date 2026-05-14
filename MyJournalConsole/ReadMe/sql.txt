@@ -1,0 +1,35 @@
+CREATE TABLE "ahmetov_prepod"."Students"
+(
+id SERIAL PRIMARY KEY,
+name text ,
+surname text ,
+patronimyc text , 
+gender_id int REFERENCES "ahmetov_prepod".Genders(id),
+birth_date TIMESTAMP
+);
+
+CREATE TABLE "ahmetov_prepod"."StudentGrades"
+(
+student_id INT REFERENCES "ahmetov_prepod".Students(id),
+grade INT 
+);
+
+CREATE TABLE "ahmetov_prepod".Genders
+(
+    id SERIAL PRIMARY KEY ,
+    gender_type VARCHAR(3)
+);
+
+
+ = = = = = = = = = = = =
+
+SELECT 
+"Students".id,
+"Students".name,
+"Students".surname,
+"Students".patronimyc,
+"genders".gender_type,
+"Students".birth_date
+
+FROM "ahmetov_prepod"."Students" 
+INNER JOIN ahmetov_prepod."genders" on "Students".gender_id = "genders".id;
