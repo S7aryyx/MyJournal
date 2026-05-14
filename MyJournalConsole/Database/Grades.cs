@@ -21,7 +21,7 @@ namespace MyJournalConsole.Database
         public static void setGradeToStudent(Grades choicenStudent)
         {
             string connectionString = "Host=46.191.235.28;Port=5432;Username=postgres;Password=1111;Database=P_511_Students";
-            string sql = "INSERT INTO \"ahmetov_prepod\".StudentGrades(student_id , grade) " +
+            string sql = "INSERT INTO \"ahmetov_prepod\".\"StudentGrades\"(student_id , grade) " +
                 "VALUES (@student_id , @grade)";
 
             try
@@ -60,7 +60,6 @@ namespace MyJournalConsole.Database
     //    }
     //    public void setGradeForStudent()
     //    {
-
     //    }
 
 

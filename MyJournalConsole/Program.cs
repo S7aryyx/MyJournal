@@ -35,6 +35,16 @@ namespace MyJournalConsole
                         break;
                     case 2:
                         Console.WriteLine("-== Раздел выставления оценок ==-");
+                        ShowAllStudents();
+                        Console.WriteLine("\n\n\n");
+                        Console.WriteLine("Введите ID Студента , которому хотите поставить оценку: ");
+                        int choicen_id =  Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine($"Введите Оценку для студента: ");
+                        int new_grade = Convert.ToInt32(Console.ReadLine());
+                        Grades.setGradeToStudent(new Grades(choicen_id , new_grade));
+                        Console.ReadKey();
+                        Console.Clear();
+
                         break;
                     case 3:
                         Console.WriteLine("-== Панель ОТЧИСЛЕНИЯ студентов ==-");

@@ -23,6 +23,7 @@ namespace MyJournalConsole.Database
         private string gender { get; set; }
         private DateTime birth_date { get; set; }
 
+        
         public Student(int n_id , string n_name , 
             string n_surname , string n_patronimyc , 
             string n_gender , DateTime n_birthDate)
@@ -59,9 +60,8 @@ namespace MyJournalConsole.Database
         }
         public static Student getStudentById(int f_id)
         {
-            Student student = null;
             DataTable dt = new DataTable();
-
+            Student student = null;
             try
             {
                 string connectionString = "Host=46.191.235.28;Port=5432;Username=postgres;Password=1111;Database=P_511_Students";
@@ -72,19 +72,10 @@ namespace MyJournalConsole.Database
                     conn.Open();
                     using (var command = new NpgsqlCommand(sql, conn))
                     {
-                        command.Parameters.AddWithValue("f_id", f_id);
+                        command.Parameters.AddWithValue("@f_id", f_id);
                         using (var reader = command.ExecuteReader())
                         {
                             dt.Load(reader);
-                            foreach (DataRow row in dt.Rows)
-                            {
-                                student.id = Convert.ToInt32(row["id"]);
-                                student.name = row["name"].ToString();
-                                student.surname = row["surname"].ToString();
-                                student.patronimyc = row["patronimyc"].ToString();
-                                student.gender = row["gender_type"].ToString();
-                                student.birth_date = Convert.ToDateTime(row["birth_date"]);
-                            }
                         }
                     }
                 }
@@ -93,6 +84,16 @@ namespace MyJournalConsole.Database
                 {
                     Console.WriteLine(ex.Message);
                 }
+            foreach (DataRow row in dt.Rows)
+            {
+                var id = Convert.ToInt32(row["id"]);
+                var name = row["name"].ToString();
+                var surname = row["surname"].ToString();
+                var patronimyc = row["patronimyc"].ToString();
+                var gender = row["gender_type"].ToString();
+                var birth_date = Convert.ToDateTime(row["birth_date"]);
+                student = new Student(id,name,surname,patronimyc,gender,birth_date);
+            }
             return student;
         }   
         }
