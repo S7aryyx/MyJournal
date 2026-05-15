@@ -3,14 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
-
-//В проекте - создайте папку Database
-//И в папке - классы
-//Student.cs
 
 namespace MyJournalConsole.Database
 {
