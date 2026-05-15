@@ -47,7 +47,10 @@ namespace MyJournalConsole
 
                         break;
                     case 3:
+                        Console.WriteLine("Введите ID Студента , которого хотите отчислить: ");
+                        int choicen_id_2 = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("-== Панель ОТЧИСЛЕНИЯ студентов ==-");
+                        Student.deleteStudent(choicen_id_2);
                         break;
                     case 10:
                         Console.WriteLine("Гудбай Тёмный друн");

@@ -23,10 +23,10 @@ namespace MyJournalConsole.Database
         private string gender { get; set; }
         private DateTime birth_date { get; set; }
 
-        
-        public Student(int n_id , string n_name , 
-            string n_surname , string n_patronimyc , 
-            string n_gender , DateTime n_birthDate)
+
+        public Student(int n_id, string n_name,
+            string n_surname, string n_patronimyc,
+            string n_gender, DateTime n_birthDate)
         {
             this.id = n_id;
             this.name = n_name;
@@ -54,9 +54,9 @@ namespace MyJournalConsole.Database
                         dt.Load(reader);
                     }
                 }
-               
-            }   
-                return dt;
+
+            }
+            return dt;
         }
         public static Student getStudentById(int f_id)
         {
@@ -80,10 +80,10 @@ namespace MyJournalConsole.Database
                     }
                 }
             }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             foreach (DataRow row in dt.Rows)
             {
                 var id = Convert.ToInt32(row["id"]);
@@ -92,9 +92,60 @@ namespace MyJournalConsole.Database
                 var patronimyc = row["patronimyc"].ToString();
                 var gender = row["gender_type"].ToString();
                 var birth_date = Convert.ToDateTime(row["birth_date"]);
-                student = new Student(id,name,surname,patronimyc,gender,birth_date);
+                student = new Student(id, name, surname, patronimyc, gender, birth_date);
             }
             return student;
-        }   
+        }
+
+        public static bool findStudentInTable(int student_id)
+        {
+            DataTable dt = getAllStudents();
+            bool status = false;
+            foreach (DataRow row in dt.Rows)
+            {
+                if (Convert.ToInt32(row["id"]) == student_id)
+                {
+                    status = true; break;
+                }
+                else
+                {
+                    status = false;
+                }
+            }
+            return status;
+        }
+
+        public static void deleteStudent(int student_id)
+        {
+            string connectionString = "Host=46.191.235.28;Port=5432;Username=postgres;Password=1111;Database=P_511_Students";
+            string sql = "DELETE FROM \"ahmetov_prepod\".\"StudentGrades\" where student_id = @s_id;\n" +
+                         "DELETE FROM \"ahmetov_prepod\".\"Students\" WHERE id = @s_id;";
+
+            try
+            {
+                bool isActive = findStudentInTable(student_id);
+                if (isActive)
+                {
+                    var conn = new NpgsqlConnection(connectionString);
+                    conn.Open();
+                    using (conn)
+                    {
+                        var command = new NpgsqlCommand(sql, conn);
+                        command.Parameters.AddWithValue("@s_id", student_id);
+                        command.ExecuteNonQuery();
+                    }
+                    conn.Close();
+                }
+                else
+                {
+                    Console.WriteLine("Удалить студента не получилось , тк его не существует.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
+}
+    

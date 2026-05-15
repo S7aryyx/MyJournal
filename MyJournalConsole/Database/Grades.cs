@@ -46,22 +46,3 @@ namespace MyJournalConsole.Database
     }
 }
 
-
-
-    //public class Grades
-    //{
-    //    private int Student_id;
-    //    private int Grade;
-
-    //    public Grades(int n_Student_id , int n_Grade)
-    //    {
-    //        this.Student_id = n_Student_id;
-    //        this.Grade = n_Grade;
-    //    }
-    //    public void setGradeForStudent()
-    //    {
-    //    }
-
-
-    //}
-
